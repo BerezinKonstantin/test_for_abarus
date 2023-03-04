@@ -12,15 +12,29 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [numPages, setNumPages] = useState<number | null>(null);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
+
   function getCurrentPosts(posts: IPost[]) {
     setCurrentPosts(posts.slice(currentPage * 10 - 10, currentPage * 10));
   }
-  function changePageHandler(e: React.MouseEvent<HTMLDivElement>) {
-    const num = Number((e.target as HTMLDivElement).id);
+
+  function changePageHandler(e: React.MouseEvent<HTMLButtonElement>) {
+    const etarget = e.target as HTMLButtonElement;
+    const num = Number(etarget.id);
+    if (etarget.id === "back") {
+      setCurrentPage(currentPage - 1);
+    }
+    if (etarget.id === "next") {
+      setCurrentPage(currentPage + 1);
+    }
     if (numPages && num <= numPages) {
-      setCurrentPage(Number((e.target as HTMLDivElement).id));
+      setCurrentPage(num);
     }
   }
+
+  useEffect(() => {
+    getCurrentPosts(data);
+  }, [currentPage]);
+
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(e.target.value);
     console.log(searchInputValue);
@@ -35,7 +49,6 @@ function App() {
         setData(response.data);
         getCurrentPosts(response.data);
         setNumPages(response.data.length / 10);
-        console.log(response);
       })
       .catch((error) => {
         console.log(error);
