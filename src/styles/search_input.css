@@ -1,0 +1,26 @@
+.search_input {
+  width: 100%;
+  padding: 18px 50px 15px 26px;
+  border: none;
+  background-color: rgba(90, 92, 102, 1);
+  color: rgba(178, 183, 191, 1);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+}
+.search_input_wrapper {
+  display: flex;
+  margin: 0 auto 15px 0;
+  width: 631px;
+  min-height: 52px;
+  position: relative;
+}
+.search_input_wrapper::after {
+  position: absolute;
+  top: 15px;
+  right: 24px;
+  content: "";
+  background: url(../assets/Search-Icon.svg);
+  width: 21px;
+  height: 21px;
+}

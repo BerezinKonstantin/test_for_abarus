@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import "./App.css";
+import "./index.css";
 import Pagination from "./components/Pagination";
 import SearchInput from "./components/SearchInput";
 import Table from "./components/Table";
