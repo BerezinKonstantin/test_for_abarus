@@ -15,7 +15,7 @@ const Main = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [numPages, setNumPages] = useState<number | null>(null);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
-  function getCurrentPage() {
+  const getCurrentPage = () => {
     const numPage = Number(page);
     if (isNaN(numPage) || numPage < 1 || (numPages && numPage > numPages)) {
       setCurrentPage(1);
@@ -24,11 +24,11 @@ const Main = () => {
       setCurrentPage(numPage);
       document.title = `Таблица, стр. ${numPage} `;
     }
-  }
-  function getCurrentPosts(posts: IPost[]) {
+  };
+  const getCurrentPosts = (posts: IPost[]) => {
     setCurrentPosts(posts.slice(currentPage * 10 - 10, currentPage * 10));
-  }
-  function changePageHandler(e: React.MouseEvent<HTMLButtonElement>) {
+  };
+  const changePageHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     const etarget = e.target as HTMLButtonElement;
     if (etarget.id === "back") {
       navigate(`/${currentPage - 1}`, { replace: true });
@@ -36,7 +36,7 @@ const Main = () => {
     if (etarget.id === "next") {
       navigate(`/${currentPage + 1}`, { replace: true });
     }
-  }
+  };
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(e.target.value);
     console.log(searchInputValue);
