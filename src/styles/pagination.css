@@ -43,6 +43,7 @@
   cursor: pointer;
   border: none;
   background: none;
+  text-decoration: none;
 }
 .pagination__page_button:hover,
 .pagination__nav_button:hover {

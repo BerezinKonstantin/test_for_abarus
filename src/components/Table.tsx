@@ -1,7 +1,8 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { IPost } from "../types/types";
 import TableHeading from "./TableHeading";
 import TableRow from "./TableRow";
+
 interface TableProps {
   posts: IPost[];
 }

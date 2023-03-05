@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { NavLink } from "react-router-dom";
 
 interface PaginationProps {
   numPages: number | null;
@@ -16,15 +17,15 @@ const Pagination: FC<PaginationProps> = ({
   const backButton = document.getElementById("back");
   function addNumPagesHandler(i: number) {
     numPagesBlock.push(
-      <button
+      <NavLink
+        key={i}
         className={`pagination__page_button ${
           currentPage === i && "pagination__page_button_active"
         }`}
-        id={String(i)}
-        onClick={changePageHandler}
+        to={`/${i}`}
       >
         {i}
-      </button>
+      </NavLink>
     );
   }
   if (numPages && numPages - currentPage >= 4) {
