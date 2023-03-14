@@ -1,12 +1,13 @@
 import { FC } from "react";
-import { IPost } from "../types/types";
+import { IPost, TableActionTypes } from "../types/types";
 import TableHeading from "./TableHeading";
 import TableRow from "./TableRow";
 
 interface TableProps {
   posts: IPost[];
+  clickHandler: (arg0: TableActionTypes) => void;
 }
-const Table: FC<TableProps> = ({ posts }) => {
+const Table: FC<TableProps> = ({ posts, clickHandler }) => {
   return (
     <table className="table">
       <colgroup>
@@ -15,7 +16,7 @@ const Table: FC<TableProps> = ({ posts }) => {
         <col width="432" />
       </colgroup>
       <thead>
-        <TableHeading />
+        <TableHeading clickHandler={clickHandler} />
       </thead>
       <tbody>
         {posts.map((post) => (
