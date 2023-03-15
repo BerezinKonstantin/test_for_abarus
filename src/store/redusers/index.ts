@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import { tableActionReducer } from "./tableReduser";
+import { paginationReducer } from "./paginationReduser";
+import { tableReducer } from "./tableReduser";
 
 export const rootReducer = combineReducers({
-  table: tableActionReducer,
+  table: tableReducer,
+  pagination: paginationReducer,
 });

@@ -5,7 +5,7 @@ import axios from "axios";
 import Pagination from "./Pagination";
 import SearchInput from "./SearchInput";
 import Table from "./Table";
-import { IPost, TableActionTypes } from "../types/table";
+import { IPost, TableSortActions } from "../types/table";
 //import { useDispatch, useSelector } from "react-redux";
 import { useActions } from "../hooks/useAction";
 import { useAppSelector } from "../hooks/reduxHooks";
@@ -14,25 +14,29 @@ type PageParams = {
   page: string;
 };
 const Main = () => {
-  const { setTableSort, fetchData } = useActions();
   const params = useParams<PageParams>();
   const navigate = useNavigate();
   //const [data, setData] = useState<IPost[]>([]);
   //const [currentPosts, setCurrentPosts] = useState<IPost[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [numPages, setNumPages] = useState<number | null>(null);
+  //const [currentPage, setCurrentPage] = useState(1);
+  //const [numPages, setNumPages] = useState<number | null>(null);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
+
+  const { setTableSort, fetchData, setCurrentPage } = useActions();
   const { posts, filteredPosts, isSorted, currentPosts, error } =
     useAppSelector((state) => state.table);
-
-  const getCurrentPage = () => {
-    const numPage = Number(params.page);
-    if (isNaN(numPage) || numPage < 1 || (numPages && numPage > numPages)) {
+  const { currentPage, numberOfPages } = useAppSelector(
+    (state) => state.pagination
+  );
+  const getPages = () => {
+    const page = Number(params.page);
+    const numPages = posts.length / 10;
+    if (isNaN(page) || page < 1 || (numPages && page > numPages)) {
       setCurrentPage(1);
       navigate(`/1`, { replace: true });
     } else {
-      setCurrentPage(numPage);
-      document.title = `Таблица, стр. ${numPage} `;
+      setCurrentPage(page);
+      document.title = `Таблица, стр. ${page} `;
     }
   };
   /*const getCurrentPosts = (posts: IPost[]) => {
@@ -51,7 +55,7 @@ const Main = () => {
     setSearchInputValue(e.target.value);
     console.log(searchInputValue);
   };
-  const sortHandler = (arg0: TableActionTypes) => {
+  const sortHandler = (arg0: TableSortActions) => {
     setTableSort(arg0);
   };
 
@@ -61,7 +65,7 @@ const Main = () => {
       .then((response) => {
         /*setData(response.data);*/
         /*getCurrentPosts(response.data);*/
-        setNumPages(response.data.length / 10);
+        /*setNumPages(response.data.length / 10);*/
       })
       .catch((error) => {
         console.log(error);
@@ -72,6 +76,7 @@ const Main = () => {
   }, []);*/
   useEffect(() => {
     fetchData();
+    getPages();
   }, []);
 
   /*useEffect(() => {
@@ -89,7 +94,7 @@ const Main = () => {
       />
       <Table posts={currentPosts} clickHandler={sortHandler} />
       <Pagination
-        numPages={numPages}
+        numPages={numberOfPages}
         currentPage={currentPage}
         changePageHandler={changePageHandler}
       />
