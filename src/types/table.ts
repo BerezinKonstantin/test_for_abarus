@@ -11,31 +11,31 @@ export interface ITableState {
   loading?: boolean;
   error?: null | string;
 }
-export enum TableActionTypes {
+export enum TableSortActions {
   SORT_BY_ID = "SORT_BY_ID",
   SORT_BY_TITLE = "SORT_BY_TITLE",
   SORT_BY_BODY = "SORT_BY_BODY",
 }
-export type TableActionType = {
-  type: TableActionTypes;
+export type TableSortActionsType = {
+  type: TableSortActions;
 };
-export enum TableFetchTypes {
+export enum TableFetchActions {
   FETCH_TABLE = "FETCH_TABLE",
   FETCH_TABLE_SUCCESS = "FETCH_TABLE_SUCCESS",
   FETCH_TABLE_ERROR = "FETCH_TABLE_ERROR",
 }
 interface ITableFetchAction {
-  type: TableFetchTypes.FETCH_TABLE;
+  type: TableFetchActions.FETCH_TABLE;
 }
 interface ITableFetchSuccessAction {
-  type: TableFetchTypes.FETCH_TABLE_SUCCESS;
+  type: TableFetchActions.FETCH_TABLE_SUCCESS;
   payload: IPost[];
 }
 interface ITableFetchErrorAction {
-  type: TableFetchTypes.FETCH_TABLE_ERROR;
+  type: TableFetchActions.FETCH_TABLE_ERROR;
   payload: string;
 }
-export type TableFetchType =
+export type TableFetchActionsType =
   | ITableFetchAction
   | ITableFetchSuccessAction
   | ITableFetchErrorAction;

@@ -1,11 +1,11 @@
 import { FC } from "react";
-import { IPost, TableActionTypes } from "../types/table";
+import { IPost, TableSortActions } from "../types/table";
 import TableHeading from "./TableHeading";
 import TableRow from "./TableRow";
 
 interface TableProps {
   posts: IPost[];
-  clickHandler: (arg0: TableActionTypes) => void;
+  clickHandler: (arg0: TableSortActions) => void;
 }
 const Table: FC<TableProps> = ({ posts, clickHandler }) => {
   return (

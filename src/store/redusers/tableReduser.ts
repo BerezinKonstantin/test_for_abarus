@@ -1,8 +1,8 @@
 import {
-  TableActionType,
-  TableActionTypes,
-  TableFetchType,
-  TableFetchTypes,
+  TableSortActionsType,
+  TableSortActions,
+  TableFetchActions,
+  TableFetchActionsType,
   ITableState,
 } from "../../types/table";
 
@@ -15,12 +15,12 @@ const initialState: ITableState = {
   error: null,
 };
 
-export const tableActionReducer = (
+export const tableReducer = (
   state = initialState,
-  action: TableActionType | TableFetchType
+  action: TableSortActionsType | TableFetchActionsType
 ): ITableState => {
   switch (action.type) {
-    case TableActionTypes.SORT_BY_ID:
+    case TableSortActions.SORT_BY_ID:
       return {
         posts: state.posts.sort((prev, next) => {
           if (state.isSorted) {
@@ -32,7 +32,7 @@ export const tableActionReducer = (
         filteredPosts: state.filteredPosts,
         isSorted: !state.isSorted,
       };
-    case TableActionTypes.SORT_BY_BODY:
+    case TableSortActions.SORT_BY_BODY:
       return {
         posts: state.posts.sort((prev, next) => {
           if (state.isSorted) {
@@ -44,7 +44,7 @@ export const tableActionReducer = (
         filteredPosts: state.filteredPosts,
         isSorted: !state.isSorted,
       };
-    case TableActionTypes.SORT_BY_TITLE:
+    case TableSortActions.SORT_BY_TITLE:
       return {
         posts: state.posts.sort((prev, next) => {
           if (state.isSorted) {
@@ -56,16 +56,16 @@ export const tableActionReducer = (
         filteredPosts: state.filteredPosts,
         isSorted: !state.isSorted,
       };
-    case TableFetchTypes.FETCH_TABLE:
+    case TableFetchActions.FETCH_TABLE:
       return { loading: true, error: null, posts: [], currentPosts: [] };
-    case TableFetchTypes.FETCH_TABLE_SUCCESS:
+    case TableFetchActions.FETCH_TABLE_SUCCESS:
       return {
         loading: false,
         error: null,
         posts: action.payload,
         currentPosts: action.payload.slice(0, 10),
       };
-    case TableFetchTypes.FETCH_TABLE_ERROR:
+    case TableFetchActions.FETCH_TABLE_ERROR:
       return {
         loading: false,
         error: action.payload,
