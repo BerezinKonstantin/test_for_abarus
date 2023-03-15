@@ -11,6 +11,16 @@ export interface ITableState {
   loading?: boolean;
   error?: null | string;
 }
+
+export enum TablePostActions {
+  GET_CURRENT_POSTS = "GET_CURRENT_POSTS",
+}
+export type TablePostActionsType = {
+  type: TablePostActions;
+  payload: IPost[];
+  currentPage: number;
+};
+
 export enum TableSortActions {
   SORT_BY_ID = "SORT_BY_ID",
   SORT_BY_TITLE = "SORT_BY_TITLE",
@@ -19,6 +29,7 @@ export enum TableSortActions {
 export type TableSortActionsType = {
   type: TableSortActions;
 };
+
 export enum TableFetchActions {
   FETCH_TABLE = "FETCH_TABLE",
   FETCH_TABLE_SUCCESS = "FETCH_TABLE_SUCCESS",

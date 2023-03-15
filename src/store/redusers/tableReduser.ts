@@ -1,8 +1,10 @@
 import {
-  TableSortActionsType,
   TableSortActions,
+  TableSortActionsType,
   TableFetchActions,
   TableFetchActionsType,
+  TablePostActions,
+  TablePostActionsType,
   ITableState,
 } from "../../types/table";
 
@@ -17,7 +19,7 @@ const initialState: ITableState = {
 
 export const tableReducer = (
   state = initialState,
-  action: TableSortActionsType | TableFetchActionsType
+  action: TableSortActionsType | TableFetchActionsType | TablePostActionsType
 ): ITableState => {
   switch (action.type) {
     case TableSortActions.SORT_BY_ID:
@@ -71,6 +73,14 @@ export const tableReducer = (
         error: action.payload,
         posts: [],
         currentPosts: [],
+      };
+    case TablePostActions.GET_CURRENT_POSTS:
+      return {
+        posts: state.posts,
+        currentPosts: action.payload.slice(
+          action.currentPage * 10 - 10,
+          action.currentPage * 10
+        ),
       };
     default:
       return state;

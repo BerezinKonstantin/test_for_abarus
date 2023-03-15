@@ -4,6 +4,8 @@ import {
   TableSortActions,
   TableFetchActions,
   TableFetchActionsType,
+  TablePostActionsType,
+  TablePostActions,
 } from "../../types/table";
 import { Dispatch } from "redux";
 import axios from "axios";
@@ -11,7 +13,16 @@ import axios from "axios";
 export function setTableSort(sortBy: TableSortActions): TableSortActionsType {
   return { type: sortBy };
 }
-
+export function getCurrentPosts(
+  posts: IPost[],
+  currentPage: number
+): TablePostActionsType {
+  return {
+    type: TablePostActions.GET_CURRENT_POSTS,
+    payload: posts,
+    currentPage: currentPage,
+  };
+}
 export const fetchData = () => {
   return async (dispatch: Dispatch<TableFetchActionsType>) => {
     try {

@@ -22,21 +22,30 @@ const Main = () => {
   //const [numPages, setNumPages] = useState<number | null>(null);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
 
-  const { setTableSort, fetchData, setCurrentPage } = useActions();
+  const {
+    setTableSort,
+    fetchData,
+    setCurrentPage,
+    setNumOfPages,
+    getCurrentPosts,
+    nextPage,
+    prevPage,
+  } = useActions();
   const { posts, filteredPosts, isSorted, currentPosts, error } =
     useAppSelector((state) => state.table);
   const { currentPage, numberOfPages } = useAppSelector(
     (state) => state.pagination
   );
+  const numPages = posts.length / 10;
   const getPages = () => {
     const page = Number(params.page);
-    const numPages = posts.length / 10;
-    if (isNaN(page) || page < 1 || (numPages && page > numPages)) {
+    setNumOfPages(numPages);
+    if (isNaN(page) || page < 1 || page > numPages) {
       setCurrentPage(1);
       navigate(`/1`, { replace: true });
     } else {
       setCurrentPage(page);
-      document.title = `Таблица, стр. ${page} `;
+      getCurrentPosts(posts, page);
     }
   };
   /*const getCurrentPosts = (posts: IPost[]) => {
@@ -46,10 +55,13 @@ const Main = () => {
     const etarget = e.target as HTMLButtonElement;
     if (etarget.id === "back") {
       navigate(`/${currentPage - 1}`, { replace: true });
+      setCurrentPage(currentPage - 1);
     }
     if (etarget.id === "next") {
       navigate(`/${currentPage + 1}`, { replace: true });
+      setCurrentPage(currentPage + 1);
     }
+    getCurrentPosts(posts, currentPage);
   };
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(e.target.value);
@@ -59,30 +71,19 @@ const Main = () => {
     setTableSort(arg0);
   };
 
-  async function getData() {
-    await axios
-      .get<IPost[]>("https://jsonplaceholder.typicode.com/posts")
-      .then((response) => {
-        /*setData(response.data);*/
-        /*getCurrentPosts(response.data);*/
-        /*setNumPages(response.data.length / 10);*/
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-  /*useEffect(() => {
-    getData();
-  }, []);*/
   useEffect(() => {
     fetchData();
     getPages();
   }, []);
 
-  /*useEffect(() => {
-    getCurrentPage();
-  }, [params, numPages]);
   useEffect(() => {
+    document.title = `Таблица, стр. ${currentPage} `;
+  }, [currentPage]);
+
+  useEffect(() => {
+    getPages();
+  }, [params]);
+  /*useEffect(() => {
     getCurrentPosts(data);
   }, [currentPage]);*/
 
