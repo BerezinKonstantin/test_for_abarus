@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { TableActionTypes } from "../types/types";
+import { TableActionTypes } from "../types/table";
 
 interface TableHeadingProps {
   clickHandler: (arg0: TableActionTypes) => void;

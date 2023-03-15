@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IPost, TableActionTypes } from "../types/types";
+import { IPost, TableActionTypes } from "../types/table";
 import TableHeading from "./TableHeading";
 import TableRow from "./TableRow";
 

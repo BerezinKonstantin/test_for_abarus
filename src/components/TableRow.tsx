@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { IPost } from "../types/types";
+import { IPost } from "../types/table";
 interface TableRowProps {
   post: IPost;
 }

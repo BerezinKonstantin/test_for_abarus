@@ -1,30 +1,33 @@
-import { TableAction, TableActionTypes } from "../../types/types";
+import {
+  IPost,
+  TableActionType,
+  TableActionTypes,
+  TableFetchType,
+  TableFetchTypes,
+} from "../../types/table";
 import { Dispatch } from "redux";
 import axios from "axios";
-//import { AppDispatch } from "../index";
 
-export function setTableSort(sortBy: TableActionTypes): TableAction {
+export function setTableSort(sortBy: TableActionTypes): TableActionType {
   return { type: sortBy };
 }
 
-/*export const fetchUsers = () => {
-  return async (dispatch: Dispatch<TableAction>) => {
+export const fetchData = () => {
+  return async (dispatch: Dispatch<TableFetchType>) => {
     try {
-      dispatch({ type: UserActionTypes.FETCH_USERS });
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/users"
+      dispatch({ type: TableFetchTypes.FETCH_TABLE });
+      const response = await axios.get<IPost[]>(
+        "https://jsonplaceholder.typicode.com/posts"
       );
-      setTimeout(() => {
-        dispatch({
-          type: UserActionTypes.FETCH_USERS_SUCCESS,
-          payload: response.data,
-        });
-      }, 500);
+      dispatch({
+        type: TableFetchTypes.FETCH_TABLE_SUCCESS,
+        payload: response.data,
+      });
     } catch (e) {
       dispatch({
-        type: UserActionTypes.FETCH_USERS_ERROR,
-        payload: "Произошла ошибка при загрузке пользователей",
+        type: TableFetchTypes.FETCH_TABLE_ERROR,
+        payload: "Произошла ошибка при получении данных",
       });
     }
   };
-};*/
+};

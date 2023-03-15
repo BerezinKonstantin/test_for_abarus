@@ -5,22 +5,25 @@ import axios from "axios";
 import Pagination from "./Pagination";
 import SearchInput from "./SearchInput";
 import Table from "./Table";
-import { IPost, TableActionTypes } from "../types/types";
-import { useDispatch, useSelector } from "react-redux";
+import { IPost, TableActionTypes } from "../types/table";
+//import { useDispatch, useSelector } from "react-redux";
 import { useActions } from "../hooks/useAction";
+import { useAppSelector } from "../hooks/reduxHooks";
 
 type PageParams = {
   page: string;
 };
 const Main = () => {
-  const { setTableSort } = useActions();
+  const { setTableSort, fetchData } = useActions();
   const params = useParams<PageParams>();
   const navigate = useNavigate();
-  const [data, setData] = useState<IPost[]>([]);
-  const [currentPosts, setCurrentPosts] = useState<IPost[]>([]);
+  //const [data, setData] = useState<IPost[]>([]);
+  //const [currentPosts, setCurrentPosts] = useState<IPost[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [numPages, setNumPages] = useState<number | null>(null);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
+  const { posts, filteredPosts, isSorted, currentPosts, error } =
+    useAppSelector((state) => state.table);
 
   const getCurrentPage = () => {
     const numPage = Number(params.page);
@@ -32,9 +35,9 @@ const Main = () => {
       document.title = `Таблица, стр. ${numPage} `;
     }
   };
-  const getCurrentPosts = (posts: IPost[]) => {
+  /*const getCurrentPosts = (posts: IPost[]) => {
     setCurrentPosts(posts.slice(currentPage * 10 - 10, currentPage * 10));
-  };
+  };*/
   const changePageHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     const etarget = e.target as HTMLButtonElement;
     if (etarget.id === "back") {
@@ -56,23 +59,27 @@ const Main = () => {
     await axios
       .get<IPost[]>("https://jsonplaceholder.typicode.com/posts")
       .then((response) => {
-        setData(response.data);
-        getCurrentPosts(response.data);
+        /*setData(response.data);*/
+        /*getCurrentPosts(response.data);*/
         setNumPages(response.data.length / 10);
       })
       .catch((error) => {
         console.log(error);
       });
   }
-  useEffect(() => {
+  /*useEffect(() => {
     getData();
-  }, []);
+  }, []);*/
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  /*useEffect(() => {
     getCurrentPage();
   }, [params, numPages]);
   useEffect(() => {
     getCurrentPosts(data);
-  }, [currentPage]);
+  }, [currentPage]);*/
 
   return (
     <div className="app">
@@ -86,6 +93,7 @@ const Main = () => {
         currentPage={currentPage}
         changePageHandler={changePageHandler}
       />
+      {error && <div> Ошибка : {error}</div>}
     </div>
   );
 };
