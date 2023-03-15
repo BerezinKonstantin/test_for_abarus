@@ -20,6 +20,10 @@ th {
   color: inherit;
   font-weight: inherit;
 }
+th:hover {
+  cursor: pointer;
+  background-color: rgb(38, 39, 46);
+}
 td {
   padding: 15px 12px;
   text-align: left;
