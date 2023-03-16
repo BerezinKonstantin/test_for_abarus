@@ -21,6 +21,14 @@ export type TablePostActionsType = {
   currentPage: number;
 };
 
+export enum TableFilterActions {
+  GET_FILTRED_POSTS = "GET_FILTRED_POSTS",
+}
+export type TableFilterActionsType = {
+  type: TableFilterActions;
+  payload: IPost[];
+};
+
 export enum TableSortActions {
   SORT_BY_ID = "SORT_BY_ID",
   SORT_BY_TITLE = "SORT_BY_TITLE",

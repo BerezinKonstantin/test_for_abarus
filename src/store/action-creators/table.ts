@@ -6,6 +6,8 @@ import {
   TableFetchActionsType,
   TablePostActionsType,
   TablePostActions,
+  TableFilterActions,
+  TableFilterActionsType,
 } from "../../types/table";
 import { Dispatch } from "redux";
 import axios from "axios";
@@ -15,6 +17,9 @@ export function setTableSort(
   currentPage: number
 ): TableSortActionsType {
   return { type: sortBy, currentPage: currentPage };
+}
+export function setFiltredPosts(findPosts: IPost[]): TableFilterActionsType {
+  return { type: TableFilterActions.GET_FILTRED_POSTS, payload: findPosts };
 }
 export function getCurrentPosts(
   posts: IPost[],

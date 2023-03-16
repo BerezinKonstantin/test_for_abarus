@@ -1,11 +1,13 @@
 import {
+  ITableState,
   TableSortActions,
   TableSortActionsType,
   TableFetchActions,
   TableFetchActionsType,
   TablePostActions,
   TablePostActionsType,
-  ITableState,
+  TableFilterActions,
+  TableFilterActionsType,
 } from "../../types/table";
 
 const initialState: ITableState = {
@@ -19,7 +21,12 @@ const initialState: ITableState = {
 
 export const tableReducer = (
   state = initialState,
-  action: TableSortActionsType | TableFetchActionsType | TablePostActionsType
+  action:
+    | TableSortActionsType
+    | TableFetchActionsType
+    | TablePostActionsType
+    | TableFilterActionsType
+    | TableSortActionsType
 ): ITableState => {
   switch (action.type) {
     case TableSortActions.SORT_BY_ID:
@@ -90,6 +97,13 @@ export const tableReducer = (
           action.currentPage * 10 - 10,
           action.currentPage * 10
         ),
+        isSorted: state.isSorted,
+      };
+    case TableFilterActions.GET_FILTRED_POSTS:
+      return {
+        posts: state.posts,
+        filteredPosts: action.payload,
+        currentPosts: state.currentPosts,
         isSorted: state.isSorted,
       };
     default:

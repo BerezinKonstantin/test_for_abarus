@@ -1,9 +1,8 @@
 import React, { FC } from "react";
 interface SearchInputProps {
-  value: string;
   changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-const SearchInput: FC<SearchInputProps> = ({ value, changeHandler }) => {
+const SearchInput: FC<SearchInputProps> = ({ changeHandler }) => {
   return (
     <div className="search_input_wrapper">
       <input

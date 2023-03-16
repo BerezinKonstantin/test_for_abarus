@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Pagination from "./Pagination";
 import SearchInput from "./SearchInput";
 import Table from "./Table";
-import { TableSortActions } from "../types/table";
+import { IPost, TableSortActions } from "../types/table";
 import { useActions } from "../hooks/useAction";
 import { useAppSelector } from "../hooks/reduxHooks";
 
@@ -14,13 +14,14 @@ type PageParams = {
 const Main = () => {
   const params = useParams<PageParams>();
   const navigate = useNavigate();
-  const [searchInputValue, setSearchInputValue] = useState<string>("");
+
   const {
     setTableSort,
     fetchData,
     setCurrentPage,
     setNumOfPages,
     getCurrentPosts,
+    setFiltredPosts,
   } = useActions();
   const { posts, filteredPosts, currentPosts, error } = useAppSelector(
     (state) => state.table
@@ -30,6 +31,9 @@ const Main = () => {
   );
   const page = Number(params.page);
   const numPages = posts.length / 10;
+  if (filteredPosts) {
+    getCurrentPosts(filteredPosts, currentPage);
+  }
 
   const getInitialPage = () => {
     setNumOfPages(numPages);
@@ -61,8 +65,27 @@ const Main = () => {
   };
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInputValue(e.target.value);
-    console.log(searchInputValue);
+    const value = e.target.value;
+    if (value.trim() === "") {
+      setFiltredPosts(posts);
+      return;
+    }
+    const search = getFiltredPosts(posts, value);
+    if (!search.length) {
+      setFiltredPosts([{ id: 0, title: "Ничего не нашлось", body: "" }]);
+      return;
+    }
+    setFiltredPosts(search);
+  };
+
+  const getFiltredPosts = (items: IPost[], keyword: string) => {
+    const searchKey = keyword.toLowerCase();
+    return items.filter((value) => {
+      return (
+        value.title.toLowerCase().match(new RegExp(searchKey, "g")) ||
+        value.body.toLowerCase().match(new RegExp(searchKey, "g"))
+      );
+    });
   };
 
   const sortHandler = (sorting: TableSortActions) => {
@@ -87,10 +110,7 @@ const Main = () => {
 
   return (
     <div className="app">
-      <SearchInput
-        value={searchInputValue}
-        changeHandler={inputChangeHandler}
-      />
+      <SearchInput changeHandler={inputChangeHandler} />
       <Table posts={currentPosts} clickHandler={sortHandler} />
       <Pagination
         numPages={numberOfPages}
