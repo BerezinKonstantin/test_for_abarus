@@ -28,6 +28,7 @@ export enum TableSortActions {
 }
 export type TableSortActionsType = {
   type: TableSortActions;
+  currentPage: number;
 };
 
 export enum TableFetchActions {

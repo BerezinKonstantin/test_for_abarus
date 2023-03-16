@@ -30,7 +30,10 @@ export const tableReducer = (
           }
           return next.id - prev.id;
         }),
-        currentPosts: state.posts.slice(0, 10),
+        currentPosts: state.posts.slice(
+          action.currentPage * 10 - 10,
+          action.currentPage * 10
+        ),
         filteredPosts: state.filteredPosts,
         isSorted: !state.isSorted,
       };
@@ -42,7 +45,10 @@ export const tableReducer = (
           }
           return prev.body > next.body ? 1 : -1;
         }),
-        currentPosts: state.posts.slice(0, 10),
+        currentPosts: state.posts.slice(
+          action.currentPage * 10 - 10,
+          action.currentPage * 10
+        ),
         filteredPosts: state.filteredPosts,
         isSorted: !state.isSorted,
       };
@@ -54,7 +60,10 @@ export const tableReducer = (
           }
           return prev.title > next.title ? 1 : -1;
         }),
-        currentPosts: state.posts.slice(0, 10),
+        currentPosts: state.posts.slice(
+          action.currentPage * 10 - 10,
+          action.currentPage * 10
+        ),
         filteredPosts: state.filteredPosts,
         isSorted: !state.isSorted,
       };
@@ -81,6 +90,7 @@ export const tableReducer = (
           action.currentPage * 10 - 10,
           action.currentPage * 10
         ),
+        isSorted: state.isSorted,
       };
     default:
       return state;

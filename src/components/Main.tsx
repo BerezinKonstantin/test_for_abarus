@@ -66,7 +66,7 @@ const Main = () => {
   };
 
   const sortHandler = (sorting: TableSortActions) => {
-    setTableSort(sorting);
+    setTableSort(sorting, currentPage);
   };
 
   useEffect(() => {

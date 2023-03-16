@@ -10,8 +10,11 @@ import {
 import { Dispatch } from "redux";
 import axios from "axios";
 
-export function setTableSort(sortBy: TableSortActions): TableSortActionsType {
-  return { type: sortBy };
+export function setTableSort(
+  sortBy: TableSortActions,
+  currentPage: number
+): TableSortActionsType {
+  return { type: sortBy, currentPage: currentPage };
 }
 export function getCurrentPosts(
   posts: IPost[],
