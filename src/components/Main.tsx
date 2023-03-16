@@ -1,44 +1,37 @@
-import React, { FC, useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import Pagination from "./Pagination";
 import SearchInput from "./SearchInput";
 import Table from "./Table";
-import { IPost, TableSortActions } from "../types/table";
-//import { useDispatch, useSelector } from "react-redux";
+import { TableSortActions } from "../types/table";
 import { useActions } from "../hooks/useAction";
 import { useAppSelector } from "../hooks/reduxHooks";
 
 type PageParams = {
   page: string;
 };
+
 const Main = () => {
   const params = useParams<PageParams>();
   const navigate = useNavigate();
-  //const [data, setData] = useState<IPost[]>([]);
-  //const [currentPosts, setCurrentPosts] = useState<IPost[]>([]);
-  //const [currentPage, setCurrentPage] = useState(1);
-  //const [numPages, setNumPages] = useState<number | null>(null);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
-
   const {
     setTableSort,
     fetchData,
     setCurrentPage,
     setNumOfPages,
     getCurrentPosts,
-    nextPage,
-    prevPage,
   } = useActions();
-  const { posts, filteredPosts, isSorted, currentPosts, error } =
-    useAppSelector((state) => state.table);
+  const { posts, filteredPosts, currentPosts, error } = useAppSelector(
+    (state) => state.table
+  );
   const { currentPage, numberOfPages } = useAppSelector(
     (state) => state.pagination
   );
+  const page = Number(params.page);
   const numPages = posts.length / 10;
-  const getPages = () => {
-    const page = Number(params.page);
+
+  const getInitialPage = () => {
     setNumOfPages(numPages);
     if (isNaN(page) || page < 1 || page > numPages) {
       setCurrentPage(1);
@@ -48,9 +41,12 @@ const Main = () => {
       getCurrentPosts(posts, page);
     }
   };
-  /*const getCurrentPosts = (posts: IPost[]) => {
-    setCurrentPosts(posts.slice(currentPage * 10 - 10, currentPage * 10));
-  };*/
+
+  const getPage = () => {
+    setCurrentPage(page);
+    getCurrentPosts(posts, page);
+  };
+
   const changePageHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     const etarget = e.target as HTMLButtonElement;
     if (etarget.id === "back") {
@@ -63,29 +59,31 @@ const Main = () => {
     }
     getCurrentPosts(posts, currentPage);
   };
+
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(e.target.value);
     console.log(searchInputValue);
   };
-  const sortHandler = (arg0: TableSortActions) => {
-    setTableSort(arg0);
+
+  const sortHandler = (sorting: TableSortActions) => {
+    setTableSort(sorting);
   };
 
   useEffect(() => {
     fetchData();
-    getPages();
   }, []);
+
+  useEffect(() => {
+    getInitialPage();
+  }, [posts]);
+
+  useEffect(() => {
+    getPage();
+  }, [params]);
 
   useEffect(() => {
     document.title = `Таблица, стр. ${currentPage} `;
   }, [currentPage]);
-
-  useEffect(() => {
-    getPages();
-  }, [params]);
-  /*useEffect(() => {
-    getCurrentPosts(data);
-  }, [currentPage]);*/
 
   return (
     <div className="app">

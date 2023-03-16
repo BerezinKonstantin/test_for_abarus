@@ -1,5 +1,4 @@
 import {
-  IPaginationState,
   PaginationActions,
   PaginationActionsType,
 } from "../../types/pagination";

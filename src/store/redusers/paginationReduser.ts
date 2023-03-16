@@ -6,7 +6,7 @@ import {
 
 const initialState: IPaginationState = {
   currentPage: 1,
-  numberOfPages: 1,
+  numberOfPages: 0,
 };
 
 export const paginationReducer = (

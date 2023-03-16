@@ -5,7 +5,7 @@ import TableRow from "./TableRow";
 
 interface TableProps {
   posts: IPost[];
-  clickHandler: (arg0: TableSortActions) => void;
+  clickHandler: (sorting: TableSortActions) => void;
 }
 const Table: FC<TableProps> = ({ posts, clickHandler }) => {
   return (

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { TableSortActions } from "../types/table";
 
 interface TableHeadingProps {
-  clickHandler: (arg0: TableSortActions) => void;
+  clickHandler: (sorting: TableSortActions) => void;
 }
 
 const TableHeading: FC<TableHeadingProps> = ({ clickHandler }) => {
@@ -11,7 +11,6 @@ const TableHeading: FC<TableHeadingProps> = ({ clickHandler }) => {
     TableSortActions.SORT_BY_TITLE,
     TableSortActions.SORT_BY_BODY,
   ];
-  //Попробовать Array.from TableActionTypes
 
   const tableHeadingTitles: string[] = ["ID", "Заголовок", "Описание"];
   return (
