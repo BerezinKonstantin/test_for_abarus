@@ -33,4 +33,5 @@ https://www.figma.com/file/amcWeZhjaZ0eSyYiSNG6vN/%D0%9C%D0%B0%D0%BA%D0%B5%D1%82
 - Выполнен на React.js, TypeScript.
 - Хранение состояний с помощью Redux, Redux ToolKit.
 
-
+## Деплой на Vercel:
+https://test-for-abarus.vercel.app/
