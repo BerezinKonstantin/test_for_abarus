@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.17eb1d62.css",
-    "main.js": "/static/js/main.fe820dc4.js",
-    "index.html": "/index.html",
-    "static/media/Search-Icon.svg": "/static/media/Search-Icon.42a69f6c4dc27bbf7c00.svg",
-    "static/media/Sort-pointer.svg": "/static/media/Sort-pointer.4320ae5d44313dde36c3.svg",
-    "main.17eb1d62.css.map": "/static/css/main.17eb1d62.css.map",
-    "main.fe820dc4.js.map": "/static/js/main.fe820dc4.js.map"
+    "main.css": "/test_for_abarus/static/css/main.b3952743.css",
+    "main.js": "/test_for_abarus/static/js/main.fe820dc4.js",
+    "index.html": "/test_for_abarus/index.html",
+    "static/media/Search-Icon.svg": "/test_for_abarus/static/media/Search-Icon.42a69f6c4dc27bbf7c00.svg",
+    "static/media/Sort-pointer.svg": "/test_for_abarus/static/media/Sort-pointer.4320ae5d44313dde36c3.svg",
+    "main.b3952743.css.map": "/test_for_abarus/static/css/main.b3952743.css.map",
+    "main.fe820dc4.js.map": "/test_for_abarus/static/js/main.fe820dc4.js.map"
   },
   "entrypoints": [
-    "static/css/main.17eb1d62.css",
+    "static/css/main.b3952743.css",
     "static/js/main.fe820dc4.js"
   ]
 }
